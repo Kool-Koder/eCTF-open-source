@@ -1,0 +1,46 @@
+﻿@model AdminSide.Models.CategoriesViewModelIEnumerable
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<br>
+<div class="container">
+    <h4>Competition</h4>
+    <hr />
+    <form asp-action="Create">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="Competition.CompetitionName" class="control-label"></label>
+            <input asp-for="Competition.CompetitionName" class="form-control" />
+            <span asp-validation-for="Competition.CompetitionName" class="text-danger"></span>
+        </div>
+        <label>Categories (Ctrl + right click to do multi-select)</label>
+        <p id="categories"></p>
+        <select asp-for="SelectedCategories" asp-items="Model.CategoriesList" id="category" onChange="OnChange()" class="form-control"></select>
+        <br>
+        <button type="button" class="btn btn-default">New Category</button>
+        <br>
+        <br>
+        <div class="form-group">
+            <input type="submit" value="Create" class="btn btn-success" />
+        </div>
+    </form>
+</div>
+
+<!--<div>
+    <a asp-action="Index">Back to List</a>
+</div>-->
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+<script>
+    function OnChange() {
+        var value = $('#category').val();
+        for (var i = 0; i < value.length; i++) {
+            document.getElementById("categories").innerHTML = "Categories selected: " + value;
+        }
+    }
+</script>

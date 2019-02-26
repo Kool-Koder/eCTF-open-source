@@ -1,0 +1,160 @@
+﻿@model UserSide.Models.Competition
+
+@{
+    ViewData["Title"] = "Challenges";
+    int counter = 0;
+}
+
+<title>@ViewData["Title"] - Challenges</title>
+
+<style>
+    #divCompetition {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    #challengeButton {
+        margin: 10px 0px 10px 0px;
+        /*height: 70px;
+        width: 200px;*/
+        padding-left: 0px;
+        padding-right: 0px;
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+
+    #bigdiv {
+        margin-left: 0px;
+        padding-left: 0px;
+    }
+
+    #inlineblock {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+</style>
+
+<br>
+<div class="container">
+    <div class="btn-group d-flex" role="group">
+        <a asp-controller="Challenges" asp-action="Index" asp-route-id="@Model.ID" class="w-100"><input type="button" value="Challenges" class="btn btn btn-outline-info w-100 active"></a>
+        <a asp-controller="Teams" asp-action="Index" asp-route-id="@Model.ID" class="w-100"><input type="button" value="Scoreboard" class="btn btn btn-outline-info w-100"></a>
+    </div>
+
+    <hr>
+    @{ var SolveChallengeList = new List<int>(); }
+    @if ((bool)ViewData["Archived"] != true)
+    {
+        foreach (var team in Model.Teams)
+        {
+            if (team.TeamID == (int)ViewData["TeamID"])
+            {
+                foreach (var teamchallenge in team.TeamChallenges)
+                {
+                    if (teamchallenge.TeamId == team.TeamID)
+                    {
+                        if (teamchallenge.Solved == true)
+                        {
+                            SolveChallengeList.Add(teamchallenge.ChallengeId);
+                        }
+                    }
+                }
+            }
+        }
+    }
+    @foreach (var category in Model.CompetitionCategories)
+    {
+        <h2>@Html.DisplayFor(modelItem => category.CategoryName)</h2>
+        <hr>
+        <div class="col-md-12" id="bigdiv">
+            @if ((bool)ViewData["Archived"] != true)
+            {
+                counter = 0;
+                @foreach (var challenge in category.Challenges)
+                {
+                    bool solved = false;
+                    @foreach (var challengeID in SolveChallengeList)
+                    {
+                        if (challenge.ID == challengeID)
+                        {
+                            <div class="col-md-3 d-inline-block" id="inlineblock">
+                                <a asp-controller="Challenges" asp-action="Details" asp-route-id="@challenge.ID">
+                                    @*<button type="button" class="btn btn-light" data-toggle="modal" data-target="#exampleModalCenter" data="@item1">*@
+                                    <button type="button" class="btn btn-success w-100" id="challengeButton" data="@challenge">
+                                        @Html.DisplayFor(modelItem => challenge.Name)
+                                        <br>
+                                        @Html.DisplayFor(modelItem => challenge.Value)
+                                    </button>
+                                </a>
+                            </div>
+                            solved = true;
+                        }
+                    }
+                    if (solved == false)
+                    {
+                        <div class="col-md-3 d-inline-block" id="inlineblock">
+                            <a asp-controller="Challenges" asp-action="Details" asp-route-id="@challenge.ID">
+                                @*<button type="button" class="btn btn-light" data-toggle="modal" data-target="#exampleModalCenter" data="@item1">*@
+                                <button type="button" class="btn btn-dark w-100" id="challengeButton" data="@challenge">
+                                    @Html.DisplayFor(modelItem => challenge.Name)
+                                    <br>
+                                    @Html.DisplayFor(modelItem => challenge.Value)
+                                </button>
+                            </a>
+                        </div>
+                    }
+                    counter++;
+                }
+                @if (counter == 0)
+                {
+                    <p>This category has no challenges yet</p>
+                }
+            }
+            else
+            {
+                counter = 0;
+                @foreach (var challenge in category.Challenges)
+                {
+                    <div class="col-md-3 d-inline-block" id="inlineblock">
+                        <a asp-controller="Challenges" asp-action="Details" asp-route-id="@challenge.ID">
+                            @*<button type="button" class="btn btn-light" data-toggle="modal" data-target="#exampleModalCenter" data="@item1">*@
+                            <button type="button" class="btn btn-dark w-100" id="challengeButton" data="@challenge">
+                                @Html.DisplayFor(modelItem => challenge.Name)
+                                <br>
+                                @Html.DisplayFor(modelItem => challenge.Value)
+                            </button>
+                        </a>
+                    </div>
+                    counter++;
+                }
+                @if (counter == 0)
+                {
+                    <p>This category has no challenges yet</p>
+                }
+            }
+        </div>
+    }
+    <br>
+    <a asp-controller="Competitions" asp-action="Index"><input type="button" value="Back" class="btn btn btn-primary"></a>
+</div>
+
+@*Modal
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>*@

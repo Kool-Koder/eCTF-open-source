@@ -1,0 +1,116 @@
+﻿@model IEnumerable<UserSide.Models.Chat>
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<IdentityUser> UserManager
+
+@{
+    ViewData["Title"] = "LIVE CHAT";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+
+    <style>
+        h2 {
+            margin-top: 30px;
+            text-align: center;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <h2>@ViewData["Title"]</h2>
+
+    <!--Individual-->
+
+
+    <div class="container">
+       
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.MsgCount)
+                    </th>
+                    <th>
+                        Recipent
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var item in Model)
+                {
+                <tr>
+                    @if (UserManager.GetUserId(User).Equals(item.UserOne))
+                    {
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MsgCount)
+                        </td>
+                        foreach (var u in ViewBag.UserList)
+                        {
+                            @if (u.Id.Equals(item.UserTwo))
+                            {
+                                <td>
+                                    @u.UserName
+                                </td>
+                            }
+                        }
+                        <td>
+                            <form>
+                                <button type="submit" class="btn btn-primary" asp-action="TalkView" asp-route-id="Model.ID">Chat</button>
+                            </form>
+                        </td>
+                    }
+                    @if (UserManager.GetUserId(User).Equals(item.UserTwo))
+                    {
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MsgCount)
+                        </td>
+                        foreach (var u in ViewBag.UserList)
+                        {
+                            @if (u.Id.Equals(item.UserOne))
+                            {
+                                <td>
+                                    @u.UserName
+                                </td>
+                            }
+                        }
+                        <td>
+                            <form asp-action="TalkView">
+                                <button type="submit" class="btn btn-primary" asp-action="TalkView" asp-route-id="Model.ID">Chat</button>
+                            </form>
+                        </td>
+                    }
+
+                </tr>
+                }
+                   
+            </tbody>
+        </table>
+
+       
+        <form>
+            <div class="form-row">
+                <div class="col-7">
+                    <input type="text" class="form-control" placeholder="Search">
+                </div>
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-dark"><i class="material-icons">search</i></button>
+                    <button type="submit" class="btn btn-dark" asp-action="CreateGroup"><i class="material-icons">group_add</i></button>
+                    <button type="submit" class="btn btn-dark" asp-action="CreateChat"><i class="material-icons">chat</i></button>
+                </div>
+            </div>
+        </form>
+
+
+        <script src="~/lib/signalr/dist/browser/signalr.js"></script>
+        <script src="~/js/chat.js"></script>
+
+
+    </div>
+</body>
+</html>

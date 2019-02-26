@@ -1,0 +1,61 @@
+﻿@model AdminSide.Models.Team
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<style>
+    .center {
+        display: flex;
+        justify-content: center;
+    }
+</style>
+
+<br>
+<div class="container">
+    <h1 class="center">@Model.TeamName</h1>
+    <h2 class="center">@Model.Score Points</h2>
+    <hr>
+    <div class="row">
+        <hr />
+        <div class="col-md-6 d-inline-block" id="SolvePercChartContainer" style="height: 370px; width: 100%;"></div>
+        <div class="col-md-6 d-inline-block" id="CategoryChartContainer" style="height: 370px; width: 100%;"></div>
+        <script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+        <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    </div>
+    <br>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Password)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Password)
+        </dd>
+    </dl>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Username
+                </th>
+                @*<th>
+                        @Html.DisplayNameFor(model => model.Status)
+                    </th>
+                    <th></th>*@
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.TeamUsers)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UserName)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div>
+        <a asp-controller="Teams" asp-action="Index" asp-route-id="@Model.CompetitionID"><input type="button" value="Back to List" class="btn btn btn-primary"></a>
+    </div>
+</div>

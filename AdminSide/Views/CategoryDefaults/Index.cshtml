@@ -1,0 +1,43 @@
+﻿@model IEnumerable<AdminSide.Models.CategoryDefault>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<br>
+<div class="container">
+    <h2>Default Categories</h2>
+    <p>Speeds up CTF Creation</p>
+    <hr />
+    <div class="float-right">
+        <a asp-action="Create"><input type="button" value="New Default Category" class="btn btn btn-primary"></a>
+    </div>
+    <br>
+    <br>
+    <table class="table table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.CategoryName)
+                </th>
+                <th>
+                    Actions
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CategoryName)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.ID"><input type="button" value="Edit" class="btn btn btn-outline-primary"></a>
+                        <a asp-action="Delete" asp-route-id="@item.ID"><input type="button" value="Delete" class="btn btn btn-outline-danger"></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

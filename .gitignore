@@ -332,3 +332,9 @@ ASALocalRun/
 
 # Local History for Visual Studio
 .localhistory/
+
+# Key files
+*appsettings.json
+*aws-beanstalk-tools-defaults.json
+*launchSettings.json
+*DbInitializer.cs

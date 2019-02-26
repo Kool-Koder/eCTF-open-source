@@ -1,0 +1,78 @@
+﻿@model AdminSide.Models.Challenge
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<br>
+<div class="container">
+    <div>
+        <h4>Edit Challenge</h4>
+        <hr />
+        @*May replace this to form to allow Editing and Viewing of Details on 1 page*@
+        <form method="post" enctype="multipart/form-data" asp-action="Details">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Value" class="control-label"></label>
+                <input asp-for="Value" class="form-control" />
+                <span asp-validation-for="Value" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Flag" class="control-label"></label>
+                <input asp-for="Flag" class="form-control" />
+                <span asp-validation-for="Flag" class="text-danger"></span>
+            </div>
+            @*<div class="form-group">
+                    <label asp-for="CompetitionCategoryID" class="control-label"></label>
+                    <select asp-for="CompetitionCategoryID" class="form-control" asp-items="ViewBag.SelectList"></select>
+                    <span asp-validation-for="CompetitionCategoryID" class="text-danger"></span>
+                </div>*@
+            <div class="form-group">
+                <label asp-for="CompetitionCategoryID" class="control-label"></label>
+                <select asp-for="CompetitionCategoryID" class="form-control" asp-items="@ViewBag.SelectList"></select>
+                <span asp-validation-for="CompetitionCategoryID" class="text-danger"></span>
+            </div>
+            <div>
+                <input type="hidden" asp-for="CompetitionCategoryID" value="@Model.CompetitionCategoryID">
+                <span asp-validation-for="CompetitionCategoryID" class="text-danger"></span>
+            </div>
+            <div>
+                <input type="hidden" asp-for="CompetitionID" value="@Model.CompetitionID">
+                <span asp-validation-for="CompetitionID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                @if (Model.FileName == null)
+                {
+                    <h4>File Name: No file</h4>
+                }
+                else
+                {
+                    <h4>File Name: @Model.FileName</h4>
+                }
+                <p>Upload file using this form:</p>
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="customFile" name="files" multiple />
+                    <label class="custom-file-label" id="filename" for="customFile">Choose file</label>
+                </div>
+            </div>
+            <br>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-success" />
+            </div>
+        </form>
+    </div>
+    <div>
+        <a asp-controller="Challenges" asp-action="Delete" asp-route-id="@Model.ID"><input type="button" value="Delete" class="btn btn btn-danger"></a>
+        <a asp-controller="Challenges" asp-action="Index" asp-route-id="@Model.CompetitionID"><input type="button" value="Back" class="btn btn btn-primary"></a>
+    </div>
+</div>

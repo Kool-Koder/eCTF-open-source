@@ -1,0 +1,55 @@
+﻿@model AdminSide.Models.Competition
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<br>
+<div class="container">
+    <div class="float-right">
+        <a asp-controller="Teams" asp-action="Create" asp-route-id="@Model.ID"><input type="button" value="Create New" class="btn btn btn-primary"></a>
+    </div>
+    <br>
+    <br>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @*@Html.DisplayNameFor(model => model.TeamName)*@
+                    Team Name
+                </th>
+                <th>
+                    @*@Html.DisplayNameFor(model => model.Password)*@
+                    Password
+                </th>
+                <th>
+                    @*@Html.DisplayNameFor(model => model.Password)*@
+                    Score
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Teams)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TeamName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Password)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Score)
+                    </td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@item.TeamID"><input type="button" value="View Details" class="btn btn btn-outline-info"></a>
+                        <a asp-action="Edit" asp-route-id="@item.TeamID"><input type="button" value="Edit" class="btn btn btn-outline-primary"></a>
+                        <a asp-action="Delete" asp-route-id="@item.TeamID"><input type="button" value="Delete" class="btn btn btn-outline-danger"></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <a asp-controller="Competitions" asp-action="Details" asp-route-id="@Model.ID"><input type="button" value="Back to Competition Details" class="btn btn btn-primary"></a>
+</div>

@@ -1,0 +1,62 @@
+﻿@model UserSide.Models.Post
+@{
+    ViewData["Title"] = "New Topic";
+}
+<br />
+<div class="container">
+
+    <h2> Create New Topic </h2>
+
+    @if (!String.IsNullOrEmpty(Convert.ToString(ViewData["Alert"])))
+    {
+        <div class="alert alert-danger" role="alert">
+            <h4 class="alert-heading"> Script code found. </h4>
+            <p>Please submit a post without script.</p>
+            <hr>
+        </div>
+    }
+
+    <form asp-action="NewTopicF">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <br />
+        <div class="form-group">
+            <label asp-for="CategoryID" class="control-label">Category</label>
+            <select asp-for="CategoryID" class="form-control" asp-items="ViewBag.CategoryID">
+                <option value="">-- Select Category --</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label asp-for="Title" class="control-label">Title</label>
+            <input asp-for="Title" class="form-control" id="tit" placeholder="Enter Title Here" />
+            <span asp-validation-for="Title" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Content" class="control-label">Content</label>
+            <input asp-for="Content" class="form-control" id="con" placeholder="Enter Content Here" />
+            <span asp-validation-for="Content" class="text-danger"></span>
+        </div>
+        <br />
+        @Html.AntiForgeryToken()
+        <div class="form-group"></div>
+        <button class="btn btn-outline-secondary" asp-area="" asp-controller="Forum" asp-action="Index">Cancel</button> &nbsp;
+        <input type="submit" value="Submit" class="btn btn-outline-primary" />
+    </form>
+</div>
+<br />
+
+@*/* facebook comment */
+    <br />
+    <div class="fb-comments" data-numposts="5"></div>
+    <div id="fb-root">
+
+    </div>
+    <script>
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2';
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>*@
+
