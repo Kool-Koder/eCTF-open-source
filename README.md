@@ -1,1 +1,1 @@
-# eCTF open source testing
+# eCTF
