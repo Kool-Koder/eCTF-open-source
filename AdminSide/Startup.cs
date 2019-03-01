@@ -144,7 +144,7 @@ namespace AdminSide
             options.UseSqlServer(
             GetRdsConnectionStringNewsFeed()));
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
             .AddRazorPagesOptions(options =>
             {
                 options.AllowAreas = true;
