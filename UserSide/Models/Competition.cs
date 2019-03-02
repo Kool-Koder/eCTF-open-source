@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace UserSide.Models
 {
@@ -17,6 +14,7 @@ namespace UserSide.Models
         public string Status { get; set; }
         [Display(Name = "Bucket Name")]
         public string BucketName { get; set; }
+        public int MaxUsers { get; set; }
 
         public ICollection<CompetitionCategory> CompetitionCategories { get; set; }
         //public ICollection<Challenge> Challenges { get; set; }

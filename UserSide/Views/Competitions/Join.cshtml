@@ -11,8 +11,14 @@
         <a asp-controller="Competitions" asp-action="Join" asp-route-id="@ViewData["CompetitionID"]" class="w-100"><input type="button" value="Join Group" class="btn btn btn-outline-primary w-100 active"></a>
         <a asp-controller="Competitions" asp-action="SignUp" asp-route-id="@ViewData["CompetitionID"]" class="w-100"><input type="button" value="Create Group" class="btn btn btn-outline-primary w-100"></a>
     </div>
-    <h2></h2>
-    @if ((bool)ViewData["Show"] == true)
+    @if ((int)ViewData["Show"] == 1)
+    {
+        <br>
+        <div class="alert alert-danger" role="alert">
+            <p style="margin-bottom: 0;">Team limit reached. Please join another team or form your own team.</p>
+        </div>
+    }
+    else if ((int)ViewData["Show"] == 2)
     {
         <br>
         <div class="alert alert-danger" role="alert">
@@ -25,8 +31,7 @@
         <br>
         <section>
             <form method="post">
-                <h2>Change form data</h2>
-                <h3>Warning! Once you join a team you cannot change your team</h3>
+                <h2>Warning! Once you join a team you cannot change your team</h2>
                 <div class="form-group">
                     <label asp-for="TeamName" class="control-label"></label>
                     <select asp-for="TeamID" class="form-control" asp-items="ViewBag.SelectList"></select>
