@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace AdminSide.Models
 {
@@ -24,7 +20,10 @@ namespace AdminSide.Models
         //Add regex here
         [Display(Name = "Bucket Name")]
         public string BucketName { get; set; }
-        
+        //Maximum users per team
+        [Range(1, 100, ErrorMessage = "Maximum users must be more than 0 and less than 100")]
+        public int MaxUsers { get; set; }
+
         public ICollection<CompetitionCategory> CompetitionCategories { get; set; }
         public ICollection<Team> Teams { get; set; }
     }
