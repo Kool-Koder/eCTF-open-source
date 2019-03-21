@@ -10,15 +10,14 @@
         <a asp-controller="Challenges" asp-action="Index" asp-route-id="@Model.ID" class="w-100"><input type="button" value="Challenges" class="btn btn btn-outline-info w-100"></a>
         <a asp-controller="Teams" asp-action="Index" asp-route-id="@Model.ID" class="w-100"><input type="button" value="Scoreboard" class="btn btn btn-outline-info w-100 active"></a>
     </div>
-    <table class="table">
+    <br>
+    <table class="table" id="TeamsTable">
         <thead>
             <tr>
                 <th>
-                    @*@Html.DisplayNameFor(model => model.TeamName)*@
                     Team Name
                 </th>
                 <th>
-                    @*@Html.DisplayNameFor(model => model.Score)*@
                     Score
                 </th>
                 <th>
@@ -46,3 +45,11 @@
     </table>
     <a asp-controller="Competitions" asp-action="Index"><input type="button" value="Back" class="btn btn btn-primary"></a>
 </div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('table.table').DataTable();
+        });
+    </script>
+}
