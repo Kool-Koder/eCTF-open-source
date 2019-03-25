@@ -196,9 +196,13 @@ namespace UserSide.Controllers
             {
                 ViewData["Show"] = 1;
             }
-            else
+            else if (check == 2)
             {
                 ViewData["Show"] = 2;
+            }
+            else
+            {
+                ViewData["Show"] = 3;
             }
             return View();
         }
@@ -208,6 +212,12 @@ namespace UserSide.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Join([Bind("TeamID, Password, CompetitionID")]Team team)
         {
+            if (team.TeamID == 0)
+            {
+                @ViewData["Show"] = true;
+                return RedirectToAction("Join", "Competitions", new { id = team.CompetitionID, check = 3 });
+            }
+
             var localvarTeam = await _context.Teams
                 .Include(t => t.TeamUsers)
                 .FirstOrDefaultAsync(m => m.TeamID == team.TeamID);
