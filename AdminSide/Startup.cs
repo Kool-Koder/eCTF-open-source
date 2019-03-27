@@ -144,7 +144,7 @@ namespace AdminSide
             options.UseSqlServer(
             GetRdsConnectionStringNewsFeed()));
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+            services.AddMvc(options => options.EnableEndpointRouting = false).SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
             .AddRazorPagesOptions(options =>
             {
                 options.AllowAreas = true;
@@ -162,9 +162,6 @@ namespace AdminSide
                 options.LogoutPath = $"/Identity/Account/Logout";
                 options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
             });
-
-            //// using Microsoft.AspNetCore.Identity.UI.Services;
-            //services.AddSingleton<IEmailSender, EmailSender>();
 
             // requires
             services.AddSingleton<IEmailSender, EmailSender>();
@@ -211,13 +208,6 @@ namespace AdminSide
                 app.UseHsts();
             }
 
-            //Testing programtically migrating DB
-            //using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
-            //{
-            //    var context = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-            //    context.Database.Migrate();
-            //}
-
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
@@ -237,12 +227,4 @@ namespace AdminSide
             });
         }
     }
-
-    //public class EmailSender : IEmailSender
-    //{
-    //    public Task SendEmailAsync(string email, string subject, string message)
-    //    {
-    //        return Task.CompletedTask;
-    //    }
-    //}
 }
