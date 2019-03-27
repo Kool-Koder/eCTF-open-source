@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Net;
 using System.Net.Http;
 using System.Text.Encodings.Web;
@@ -80,7 +78,8 @@ namespace UserSide.Areas.Identity.Pages.Account
                     return RedirectToAction("ForgotPassword", "Identity/Account");
                 }
             }
-            return RedirectToAction("ForgotPassword", "Identity/Account");
+            //return RedirectToAction("ForgotPassword", "Identity/Account");
+            return Page();
         }
 
         public static bool ReCaptchaPassed(string gRecaptchaResponse, string secret)
