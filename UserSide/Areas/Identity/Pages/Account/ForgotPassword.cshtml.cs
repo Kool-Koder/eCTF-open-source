@@ -75,7 +75,8 @@ namespace UserSide.Areas.Identity.Pages.Account
                 }
                 else
                 {
-                    return RedirectToAction("ForgotPassword", "Identity/Account");
+                    //return RedirectToAction("ForgotPassword", "Identity/Account");
+                    return Page();
                 }
             }
             //return RedirectToAction("ForgotPassword", "Identity/Account");
