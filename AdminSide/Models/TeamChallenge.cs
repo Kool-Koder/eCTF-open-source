@@ -15,5 +15,7 @@ namespace AdminSide.Models
 
         public int TeamId { get; set; }
         public int ChallengeId { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime TimeStamp { get; set; }
     }
 }

@@ -17,5 +17,7 @@ namespace UserSide.Models
         public int TeamId { get; set; }
         [ForeignKey("ChallengeId")]
         public int ChallengeId { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime TimeStamp { get; set; }
     }
 }
