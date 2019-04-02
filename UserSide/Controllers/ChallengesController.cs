@@ -239,6 +239,7 @@ namespace UserSide.Controllers
                 teamChallenge.ChallengeId = localvarchallenge.ID;
                 teamChallenge.TeamId = team.TeamID;
                 teamChallenge.Solved = true;
+                teamChallenge.TimeStamp = DateTime.Now;
                 _context.Add(teamChallenge);
                 await _context.SaveChangesAsync();
 
@@ -275,6 +276,7 @@ namespace UserSide.Controllers
                 teamChallenge.ChallengeId = localvarchallenge.ID;
                 teamChallenge.TeamId = team.TeamID;
                 teamChallenge.Solved = false;
+                teamChallenge.TimeStamp = DateTime.Now;
                 _context.Add(teamChallenge);
                 await _context.SaveChangesAsync();
 

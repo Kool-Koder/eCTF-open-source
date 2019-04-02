@@ -1,4 +1,4 @@
-﻿@model UserSide.Models.Team
+﻿@model UserSide.Models.TeamDetailsViewModel
 
 @{
     ViewData["Title"] = "Details";
@@ -13,8 +13,8 @@
 
 <br>
 <div class="container">
-    <h1 class="center">@Model.TeamName</h1>
-    <h2 class="center">@Model.Score Points</h2>
+    <h1 class="center">@ViewData["TeamName"]</h1>
+    <h2 class="center">@ViewData["TeamScore"] Points</h2>
     <hr>
     <div class="row">
         <hr />
@@ -24,7 +24,58 @@
         <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
     </div>
     <br>
+    <br>
+    <h2 class="center">Solved</h2>
+    <table class="table" id="TeamsTable">
+        <thead>
+            <tr>
+                <th>
+                    Counter
+                </th>
+                <th>
+                    Challenge name
+                </th>
+                <th>
+                    Value
+                </th>
+                <th>
+                    Time
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @{int counter = 1; }
+            @foreach (var teamChallenge in Model.Team.TeamChallenges)
+            {
+                if (teamChallenge.Solved == true)
+                {
+                    <tr>
+                        <td>
+                            @counter
+                        </td>
+                        @foreach (var challenge in Model.Challenges)
+                        {
+                            if (challenge.ID == teamChallenge.ChallengeId)
+                            {
+                                <td>
+                                    @Html.DisplayFor(modelItem => challenge.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => challenge.Value)
+                                </td>
+                            }
+                        }
+                        <td>
+                            @Html.DisplayFor(modelItem => teamChallenge.TimeStamp.Hour):@Html.DisplayFor(modelItem => teamChallenge.TimeStamp.Minute):@Html.DisplayFor(modelItem => teamChallenge.TimeStamp.Second)
+                            @Html.DisplayFor(modelItem => teamChallenge.TimeStamp)
+                        </td>
+                    </tr>
+                    counter++;
+                }
+            }
+        </tbody>
+    </table>
     <div>
-        <a asp-controller="Teams" asp-action="Index" asp-route-id="@Model.CompetitionID"><input type="button" value="Back to Teams" class="btn btn btn-primary"></a>
+        <a asp-controller="Teams" asp-action="Index" asp-route-id="@Model.Team.CompetitionID"><input type="button" value="Back to Teams" class="btn btn btn-primary"></a>
     </div>
 </div>

@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using UserSide.Data;
@@ -199,7 +197,17 @@ namespace UserSide.Controllers
 
             ViewData["TotalSolved"] = TotalSolved;
 
-            return View(team);
+            ViewData["TeamName"] = team.TeamName;
+            ViewData["TeamScore"] = team.Score;
+
+            var challenges = await _context.Challenges.ToListAsync();
+                //.FirstOrDefaultAsync(m => m.ID == competition.ID);
+
+            TeamDetailsViewModel teamDetailsViewModel = new TeamDetailsViewModel();
+            teamDetailsViewModel.Team = team;
+            teamDetailsViewModel.Challenges = challenges;
+
+            return View(teamDetailsViewModel);
         }
 
         private bool TeamExists(int id)
