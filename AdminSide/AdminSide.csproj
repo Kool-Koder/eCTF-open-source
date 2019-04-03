@@ -11,15 +11,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AWSSDK.CloudWatch" Version="3.3.10.22" />
-    <PackageReference Include="AWSSDK.CloudWatchEvents" Version="3.3.8.21" />
-    <PackageReference Include="AWSSDK.CloudWatchLogs" Version="3.3.7.21" />
-    <PackageReference Include="AWSSDK.Core" Version="3.3.31.12" />
-    <PackageReference Include="AWSSDK.EC2" Version="3.3.84" />
-    <PackageReference Include="AWSSDK.Extensions.NETCore.Setup" Version="3.3.6" />
-    <PackageReference Include="AWSSDK.GuardDuty" Version="3.3.5.39" />
-    <PackageReference Include="AWSSDK.S3" Version="3.3.31.20" />
-    <PackageReference Include="AWSSDK.SimpleNotificationService" Version="3.3.3.23" />
+    <PackageReference Include="AWSSDK.CloudWatch" Version="3.3.101" />
+    <PackageReference Include="AWSSDK.CloudWatchEvents" Version="3.3.100.3" />
+    <PackageReference Include="AWSSDK.CloudWatchLogs" Version="3.3.100.3" />
+    <PackageReference Include="AWSSDK.Core" Version="3.3.100.3" />
+    <PackageReference Include="AWSSDK.EC2" Version="3.3.101.1" />
+    <PackageReference Include="AWSSDK.Extensions.NETCore.Setup" Version="3.3.100.1" />
+    <PackageReference Include="AWSSDK.GuardDuty" Version="3.3.100.3" />
+    <PackageReference Include="AWSSDK.S3" Version="3.3.101.1" />
+    <PackageReference Include="AWSSDK.SimpleNotificationService" Version="3.3.100.3" />
     <PackageReference Include="BCrypt.Net-Next" Version="3.1.3" />
     <PackageReference Include="CodeHollow.FeedReader" Version="1.1.6" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
