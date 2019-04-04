@@ -26,8 +26,6 @@
             </tr>
         </thead>
         <tbody>
-            @*@{var SortedList = Model.Teams.OrderByDescending(t => t.Score).ToList(); }*@
-            @*@foreach (var item in Model.Teams.OrderByDescending(t => t.Score).ToList())*@
             @foreach (var item in Model.Teams)
             {
                 <tr>
@@ -50,7 +48,10 @@
 @section Scripts {
     <script>
         $(document).ready(function () {
-            $('table.table').DataTable();
+            $('table.table').DataTable(
+                {
+                    "order": [[1, "desc"]]
+                });
         });
     </script>
 }
