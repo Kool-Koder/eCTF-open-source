@@ -49,7 +49,7 @@
             }
             else
             {
-                @foreach (var challenge in category.Challenges)
+                @foreach (var challenge in category.Challenges.OrderBy(c => c.Value))
                 {
                     <div class="col-md-2 d-inline-block" id="inlineblock">
                         <a asp-controller="Challenges" asp-action="Details" asp-route-id="@challenge.ID">
