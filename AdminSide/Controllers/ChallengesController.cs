@@ -154,32 +154,22 @@ namespace AdminSide.Controllers
         {
             try
             {
-                DeleteObjectsRequest request2 = new DeleteObjectsRequest();
-                ListObjectsRequest request = new ListObjectsRequest
+                var deleteObjectRequest = new DeleteObjectRequest
                 {
                     BucketName = bucketName,
-                    Prefix = folderName + "/" + filename
-
+                    Key = folderName + "/" + filename
                 };
 
-                ListObjectsResponse response = await S3Client.ListObjectsAsync(request);
-                // Process response.
-                foreach (S3Object entry in response.S3Objects)
-                {
-
-                    request2.AddKey(entry.Key);
-                }
-                request2.BucketName = bucketName;
-                DeleteObjectsResponse response2 = await S3Client.DeleteObjectsAsync(request2);
-
+                Console.WriteLine("Deleting an object");
+                await S3Client.DeleteObjectAsync(deleteObjectRequest);
             }
             catch (AmazonS3Exception e)
             {
-                //Console.WriteLine("Error encountered on server. Message:'{0}' when writing an object", e.Message);
+                Console.WriteLine("Error encountered on server. Message:'{0}' when writing an object", e.Message);
             }
             catch (Exception e)
             {
-                //Console.WriteLine("Unknown encountered on server. Message:'{0}' when writing an object", e.Message);
+                Console.WriteLine("Unknown encountered on server. Message:'{0}' when writing an object", e.Message);
             }
         }
 
