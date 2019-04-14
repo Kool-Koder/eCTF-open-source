@@ -21,6 +21,7 @@ namespace AdminSide.Models
         [Display(Name = "Bucket Name")]
         public string BucketName { get; set; }
         //Maximum users per team
+        [Display(Name = "Max Users")]
         [Range(1, 100, ErrorMessage = "Maximum users must be more than 0 and less than 100")]
         public int MaxUsers { get; set; }
 
