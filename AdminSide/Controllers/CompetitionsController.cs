@@ -300,6 +300,36 @@ namespace AdminSide.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        public async Task<IActionResult> Logs(int? id)
+        {
+            ViewData["routeID"] = id;
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var competition = await _context.Competitions
+                .Include(c => c.CompetitionCategories)
+                .ThenInclude(c1 => c1.Challenges)
+                .Include(t => t.Teams)
+                .AsNoTracking()
+                .FirstOrDefaultAsync(m => m.ID == id);
+
+            var teamChallenge = await _context.TeamChallenges
+                .ToListAsync();
+
+            if (competition == null)
+            {
+                return NotFound();
+            }
+
+            LogsViewModel logsViewModel = new LogsViewModel();
+            logsViewModel.Competition = competition;
+            logsViewModel.TeamChallenge = teamChallenge;
+
+            return View(logsViewModel);
+        }
+
         private async Task ClearBucket(string bucketName, string folderName)
         {
             try

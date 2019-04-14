@@ -1,0 +1,80 @@
+﻿@model AdminSide.Models.LogsViewModel
+
+@{
+    ViewData["Title"] = "Logs";
+}
+
+<br>
+<div class="container">
+    <div class="btn-group d-flex" role="group">
+        <a asp-controller="Challenges" asp-action="Index" asp-route-id="@Model.Competition.ID" class="w-100"><input type="button" value="Challenges" class="btn btn btn-outline-info w-100"></a>
+        <a asp-controller="Teams" asp-action="Index" asp-route-id="@Model.Competition.ID" class="w-100"><input type="button" value="Teams" class="btn btn btn-outline-info w-100"></a>
+        <a asp-controller="Competitions" asp-action="Logs" asp-route-id="@Model.Competition.ID" class="w-100"><input type="button" value="Logs" class="btn btn btn-outline-info w-100"></a>
+        <a asp-controller="Blockchain" asp-action="Index" asp-route-id="@Model.Competition.ID" class="w-100"><input type="button" value="Blockchain" class="btn btn btn-outline-info w-100"></a>
+    </div>
+    <br>
+    <table class="table" id="TeamsTable">
+        <thead>
+            <tr>
+                <th>
+                    Counter
+                </th>
+                <th>
+                    Team name
+                </th>
+                <th>
+                    Challenge name
+                </th>
+                <th>
+                    Value
+                </th>
+                <th>
+                    Time
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @{int counter = 1; }
+            @foreach (var teamChallenge in Model.TeamChallenge)
+            {
+                if (teamChallenge.Solved == true)
+                {
+                    @foreach (var team in Model.Competition.Teams)
+                    {
+                        if (teamChallenge.TeamId == team.TeamID)
+                        {
+                            <tr>
+                                <td>
+                                    @counter
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => team.TeamName)
+                                </td>
+                                @foreach (var cc in Model.Competition.CompetitionCategories)
+                                {
+                                    @foreach (var challenge in cc.Challenges)
+                                    {
+                                        if (challenge.ID == teamChallenge.ChallengeId)
+                                        {
+                                            <td>
+                                                @Html.DisplayFor(modelItem => challenge.Name)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => challenge.Value)
+                                            </td>
+                                        }
+                                    }
+                                }
+                                <td>
+                                    @Html.DisplayFor(modelItem => teamChallenge.TimeStamp.Hour):@Html.DisplayFor(modelItem => teamChallenge.TimeStamp.Minute):@Html.DisplayFor(modelItem => teamChallenge.TimeStamp.Second)
+                                    @Html.DisplayFor(modelItem => teamChallenge.TimeStamp)
+                                </td>
+                            </tr>
+                            counter++;
+                        }
+                    }
+                }
+            }
+        </tbody>
+    </table>
+</div>
